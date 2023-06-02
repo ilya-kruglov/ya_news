@@ -61,6 +61,11 @@ def news():
 
 
 @pytest.fixture
+def news_id(news):
+    return news.id,
+
+
+@pytest.fixture
 def comment(news, author):
     return Comment.objects.create(
             news=news,
