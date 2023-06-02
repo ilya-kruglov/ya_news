@@ -1,5 +1,8 @@
+from datetime import datetime, timedelta
+
 import pytest
 
+from django.conf import settings
 from django.urls import reverse
 
 from news.models import Comment, News
@@ -92,3 +95,22 @@ def comment_delete_url(news):
 @pytest.fixture
 def comment_edit_url(news):
     return reverse('news:edit', args=(news.id,))
+
+
+@pytest.fixture
+def home_url():
+    return reverse('news:home')
+
+
+@pytest.fixture
+def all_news():
+    today = datetime.today()
+    all_news = [
+        News(
+            title=f'Новость {index}',
+            text='Просто текст.',
+            date=today - timedelta(days=index)
+        )
+        for index in range(settings.NEWS_COUNT_ON_HOME_PAGE + 1)
+    ]
+    News.objects.bulk_create(all_news)

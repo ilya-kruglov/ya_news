@@ -39,8 +39,8 @@ class TestHomePage(TestCase):
         response = self.client.get(self.HOME_URL)
         # Код ответа не проверяем, его уже проверили в тестах маршрутов.
         # Получаем список объектов из словаря контекста.
-        # object_list = response.context['object_list']
-        object_list = response.context['news_feed']
+        object_list = response.context['object_list']
+        # object_list = response.context['news_feed']
         # Определяем длину списка.
         news_count = len(object_list)
         # Проверяем, что на странице именно 10 новостей.
